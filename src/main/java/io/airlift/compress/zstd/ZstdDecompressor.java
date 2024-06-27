@@ -26,11 +26,13 @@ import static java.lang.Math.toIntExact;
 public class ZstdDecompressor
         implements Decompressor
 {
+    private static final boolean NATIVE_ENABLED = ZstdNativeDecompressor.isEnabled();
+
     private final io.airlift.compressor.zstd.ZstdDecompressor decompressor;
 
     public ZstdDecompressor()
     {
-        this.decompressor = ZstdNativeDecompressor.isEnabled() ? new ZstdNativeDecompressor() : new ZstdJavaDecompressor();
+        this.decompressor = NATIVE_ENABLED ? new ZstdNativeDecompressor() : new ZstdJavaDecompressor();
     }
 
     @Override
@@ -56,11 +58,9 @@ public class ZstdDecompressor
 
     public static long getDecompressedSize(byte[] input, int offset, int length)
     {
-        try {
+        if (NATIVE_ENABLED) {
             return new ZstdNativeDecompressor().getDecompressedSize(input, offset, length);
         }
-        catch (Exception e) {
-            return new ZstdJavaDecompressor().getDecompressedSize(input, offset, length);
-        }
+        return new ZstdJavaDecompressor().getDecompressedSize(input, offset, length);
     }
 }

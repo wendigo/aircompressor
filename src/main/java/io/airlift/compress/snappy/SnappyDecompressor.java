@@ -27,11 +27,12 @@ import static java.lang.Math.toIntExact;
 public class SnappyDecompressor
         implements Decompressor
 {
+    private static final boolean NATIVE_ENABLED = SnappyNativeCompressor.isEnabled();
     private final io.airlift.compressor.snappy.SnappyDecompressor decompressor;
 
     public SnappyDecompressor()
     {
-        this.decompressor = SnappyNativeCompressor.isEnabled() ? new SnappyNativeDecompressor() : new SnappyJavaDecompressor();
+        this.decompressor = NATIVE_ENABLED ? new SnappyNativeDecompressor() : new SnappyJavaDecompressor();
     }
 
     @Override
@@ -56,11 +57,9 @@ public class SnappyDecompressor
 
     public static int getUncompressedLength(byte[] input, int offset)
     {
-        try {
+        if (NATIVE_ENABLED) {
             return new SnappyNativeDecompressor().getUncompressedLength(input, offset);
         }
-        catch (Exception _) {
-            return new SnappyJavaDecompressor().getUncompressedLength(input, offset);
-        }
+        return new SnappyJavaDecompressor().getUncompressedLength(input, offset);
     }
 }
