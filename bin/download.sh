@@ -54,18 +54,18 @@ download_macos()
 
 # Snappy
 download_linux \
-  "http://http.us.debian.org/debian/pool/main/s/snappy/libsnappy1v5_1.1.10-1+b1_amd64.deb" \
-  "/usr/lib/x86_64-linux-gnu/libsnappy.so.1.1.10" \
+  "https://deb.debian.org/debian/pool/main/s/snappy/libsnappy1v5_1.2.1-1_amd64.deb" \
+  "/usr/lib/x86_64-linux-gnu/libsnappy.so.1.2.1" \
   "Linux-amd64/libsnappy.so"
 
 download_linux \
-  "http://http.us.debian.org/debian/pool/main/s/snappy/libsnappy1v5_1.1.10-1+b1_arm64.deb" \
-  "/usr/lib/aarch64-linux-gnu/libsnappy.so.1.1.10" \
+  "https://deb.debian.org/debian/pool/main/s/snappy/libsnappy1v5_1.2.1-1_arm64.deb" \
+  "/usr/lib/aarch64-linux-gnu/libsnappy.so.1.2.1" \
   "Linux-aarch64/libsnappy.so"
 
 download_linux \
-  "http://http.us.debian.org/debian/pool/main/s/snappy/libsnappy1v5_1.1.10-1+b1_ppc64el.deb" \
-  "/usr/lib/powerpc64le-linux-gnu/libsnappy.so.1.1.10" \
+  "https://deb.debian.org/debian/pool/main/s/snappy/libsnappy1v5_1.2.1-1_ppc64el.deb" \
+  "/usr/lib/powerpc64le-linux-gnu/libsnappy.so.1.2.1" \
   "Linux-ppc64le/libsnappy.so"
 
 download_macos \
@@ -76,18 +76,18 @@ download_macos \
 
 # Zstandard
 download_linux \
-  "http://http.us.debian.org/debian/pool/main/libz/libzstd/libzstd1_1.5.5+dfsg2-2_amd64.deb" \
-  "/usr/lib/x86_64-linux-gnu/libzstd.so.1.5.5" \
+  "https://deb.debian.org/debian/pool/main/libz/libzstd/libzstd1_1.5.6+dfsg-1_amd64.deb" \
+  "/usr/lib/x86_64-linux-gnu/libzstd.so.1.5.6" \
   "Linux-amd64/libzstd.so"
 
 download_linux \
-  "http://http.us.debian.org/debian/pool/main/libz/libzstd/libzstd1_1.5.5+dfsg2-2_arm64.deb" \
-  "/usr/lib/aarch64-linux-gnu/libzstd.so.1.5.5" \
+  "https://deb.debian.org/debian/pool/main/libz/libzstd/libzstd1_1.5.6+dfsg-1_arm64.deb" \
+  "/usr/lib/aarch64-linux-gnu/libzstd.so.1.5.6" \
   "Linux-aarch64/libzstd.so"
 
 download_linux \
-  "http://http.us.debian.org/debian/pool/main/libz/libzstd/libzstd1_1.5.5+dfsg2-2_ppc64el.deb" \
-  "/usr/lib/powerpc64le-linux-gnu/libzstd.so.1.5.5" \
+  "https://deb.debian.org/debian/pool/main/libz/libzstd/libzstd1_1.5.6+dfsg-1_ppc64el.deb" \
+  "/usr/lib/powerpc64le-linux-gnu/libzstd.so.1.5.6" \
   "Linux-ppc64le/libzstd.so"
 
 download_macos \
@@ -98,17 +98,17 @@ download_macos \
 
 # LZ4
 download_linux \
-  "http://http.us.debian.org/debian/pool/main/l/lz4/liblz4-1_1.9.4-2_amd64.deb" \
+  "https://deb.debian.org/debian/pool/main/l/lz4/liblz4-1_1.9.4-2_amd64.deb" \
   "/usr/lib/x86_64-linux-gnu/liblz4.so.1.9.4" \
   "Linux-amd64/liblz4.so"
 
 download_linux \
-  "http://http.us.debian.org/debian/pool/main/l/lz4/liblz4-1_1.9.4-2_arm64.deb" \
+  "https://deb.debian.org/debian/pool/main/l/lz4/liblz4-1_1.9.4-2_arm64.deb" \
   "/usr/lib/aarch64-linux-gnu/liblz4.so.1.9.4" \
   "Linux-aarch64/liblz4.so"
 
 download_linux \
-  "http://http.us.debian.org/debian/pool/main/l/lz4/liblz4-1_1.9.4-2_ppc64el.deb" \
+  "https://deb.debian.org/debian/pool/main/l/lz4/liblz4-1_1.9.4-2_ppc64el.deb" \
   "/usr/lib/powerpc64le-linux-gnu/liblz4.so.1.9.4" \
   "Linux-ppc64le/liblz4.so"
 
@@ -120,16 +120,16 @@ download_macos \
 
 # bzip2
 download_linux \
-  "http://http.us.debian.org/debian/pool/main/b/bzip2/libbz2-1.0_1.0.8-5.1_amd64.deb" \
+  "https://deb.debian.org/debian/pool/main/b/bzip2/libbz2-1.0_1.0.8-5.1_amd64.deb" \
   "/usr/lib/x86_64-linux-gnu/libbz2.so.1.0.4" \
   "Linux-amd64/libbz2.so"
 
 download_linux \
-  "http://http.us.debian.org/debian/pool/main/b/bzip2/libbz2-1.0_1.0.8-5.1_arm64.deb" \
+  "https://deb.debian.org/debian/pool/main/b/bzip2/libbz2-1.0_1.0.8-5.1_arm64.deb" \
   "/usr/lib/aarch64-linux-gnu/libbz2.so.1.0.4" \
   "Linux-aarch64/libbz2.so"
 
 download_linux \
-  "http://http.us.debian.org/debian/pool/main/b/bzip2/libbz2-1.0_1.0.8-5.1_ppc64el.deb" \
+  "https://deb.debian.org/debian/pool/main/b/bzip2/libbz2-1.0_1.0.8-5.1_ppc64el.deb" \
   "/usr/lib/powerpc64le-linux-gnu/libbz2.so.1.0.4" \
   "Linux-ppc64le/libbz2.so"
