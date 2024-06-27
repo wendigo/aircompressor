@@ -132,7 +132,7 @@ public final class NativeLoader
     private static MethodHandle createErrorMethodHandle(String name, LinkageError linkageError, MethodType methodType)
     {
         MethodHandle methodHandle = throwException(methodType.returnType(), LinkageError.class);
-        return MethodHandles.foldArguments(methodHandle, insertArguments(LINKAGE_ERROR_CONSTRUCTOR, 0, name + " native library not load", linkageError));
+        return MethodHandles.foldArguments(methodHandle, insertArguments(LINKAGE_ERROR_CONSTRUCTOR, 0, name + " native library not loaded because of " + linkageError.getMessage(), linkageError));
     }
 
     private static ValueLayout getMemoryLayout(Class<?> type)
