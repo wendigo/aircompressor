@@ -20,4 +20,13 @@ public sealed interface SnappyDecompressor
         permits SnappyJavaDecompressor, SnappyNativeDecompressor
 {
     int getUncompressedLength(byte[] compressed, int compressedOffset);
+
+    static SnappyDecompressor create()
+    {
+        if (SnappyNativeCompressor.isEnabled()) {
+            return new SnappyNativeDecompressor();
+        }
+
+        return new SnappyJavaDecompressor();
+    }
 }
