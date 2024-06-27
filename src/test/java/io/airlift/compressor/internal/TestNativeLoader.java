@@ -37,17 +37,17 @@ class TestNativeLoader
     void testLoadSymbols()
             throws Throwable
     {
-        Symbols<ValidMethodHandle> methodHandles = NativeLoader.loadSymbols("zstd", ValidMethodHandle.class, lookup());
+        Symbols<ValidMethodHandle> methodHandles = NativeLoader.loadSymbols("io/airlift/compress/zstd", ValidMethodHandle.class, lookup());
         assertThat(methodHandles.linkageError()).isEmpty();
         assertThat(methodHandles.symbols().defaultCLevel().invoke()).isEqualTo(3);
 
         // loadSymbols requires a record class
-        assertThatThrownBy(() -> NativeLoader.loadSymbols("zstd", Object.class, lookup()))
+        assertThatThrownBy(() -> NativeLoader.loadSymbols("io/airlift/compressor/zstd", Object.class, lookup()))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessage("methodHandlesClass is not a record class");
 
         // loadSymbols requires a constructor visible to the lookup
-        assertThatThrownBy(() -> NativeLoader.loadSymbols("zstd", ValidMethodHandle.class, MethodHandles.publicLookup()))
+        assertThatThrownBy(() -> NativeLoader.loadSymbols("io/airlift/compressor/zstd", ValidMethodHandle.class, MethodHandles.publicLookup()))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessage("Failed to find canonical constructor for %s".formatted(ValidMethodHandle.class));
 
@@ -63,12 +63,12 @@ class TestNativeLoader
                 .isEqualTo(unknownLibrary.linkageError().get());
 
         // missing annotation
-        assertThatThrownBy(() -> NativeLoader.loadSymbols("zstd", MissingAnnotation.class, lookup()))
+        assertThatThrownBy(() -> NativeLoader.loadSymbols("io/airlift/compressor/zstd", MissingAnnotation.class, lookup()))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessage("methodHandlesClass %s field 'missingAnnotation' is missing @NativeSignature annotation".formatted(MissingAnnotation.class));
 
         // constructor exception
-        assertThatThrownBy(() -> NativeLoader.loadSymbols("zstd", ThrowsException.class, lookup()))
+        assertThatThrownBy(() -> NativeLoader.loadSymbols("io/airlift/compressor/zstd", ThrowsException.class, lookup()))
                 .isInstanceOf(RuntimeException.class)
                 .hasMessage("Failed to create instance of %s".formatted(ThrowsException.class))
                 .cause()
@@ -76,7 +76,7 @@ class TestNativeLoader
                 .hasMessage("constructor exception");
 
         // unknown symbol
-        Symbols<InvalidMethodHandle> invalidMethodHandles = NativeLoader.loadSymbols("zstd", InvalidMethodHandle.class, lookup());
+        Symbols<InvalidMethodHandle> invalidMethodHandles = NativeLoader.loadSymbols("io/airlift/compressor/zstd", InvalidMethodHandle.class, lookup());
         assertThat(invalidMethodHandles.linkageError()).isPresent();
         assertThatThrownBy(() -> invalidMethodHandles.symbols().unknown().invoke())
                 .isInstanceOf(LinkageError.class)

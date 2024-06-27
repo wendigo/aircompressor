@@ -28,7 +28,7 @@ final class Lz4RawCompressor
     private static final int HASH_LOG = 12;
 
     private static final int MIN_TABLE_SIZE = 16;
-    public static final int MAX_TABLE_SIZE = (1 << HASH_LOG);
+    static final int MAX_TABLE_SIZE = (1 << HASH_LOG);
 
     private static final int COPY_LENGTH = 8;
     private static final int MATCH_FIND_LIMIT = COPY_LENGTH + MIN_MATCH;

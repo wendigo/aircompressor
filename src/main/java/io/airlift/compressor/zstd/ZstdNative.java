@@ -54,7 +54,7 @@ final class ZstdNative
     public static final int DEFAULT_COMPRESSION_LEVEL;
 
     static {
-        NativeLoader.Symbols<MethodHandles> symbols = NativeLoader.loadSymbols("zstd", MethodHandles.class, lookup());
+        NativeLoader.Symbols<MethodHandles> symbols = NativeLoader.loadSymbols("io/airlift/compressor/zstd", MethodHandles.class, lookup());
         LINKAGE_ERROR = symbols.linkageError();
         MethodHandles methodHandles = symbols.symbols();
         MAX_COMPRESSED_LENGTH_METHOD = methodHandles.maxCompressedLength();
@@ -67,7 +67,7 @@ final class ZstdNative
             DEFAULT_COMPRESSION_LEVEL = (int) methodHandles.defaultCLevel().invokeExact();
         }
         catch (Throwable e) {
-            throw new ExceptionInInitializerError(e);
+            throw new ExceptionInInitializerError(e.getMessage());
         }
     }
 

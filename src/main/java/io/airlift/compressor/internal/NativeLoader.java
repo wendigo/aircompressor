@@ -192,7 +192,21 @@ public final class NativeLoader
 
     private static String getLibraryPath(String name)
     {
-        return "/aircompressor/" + getPlatform() + "/" + System.mapLibraryName(name);
+        return "/aircompressor/" + getPlatform() + "/" + libraryName(name);
+    }
+
+    private static String libraryName(String name)
+    {
+        String libraryName = System.mapLibraryName(name);
+        if (libraryName.contains("/")) {
+            libraryName = libraryName.substring(libraryName.lastIndexOf("/") + 1);
+        }
+
+        if (!libraryName.startsWith("lib")) {
+            return "lib" + libraryName;
+        }
+
+        return libraryName;
     }
 
     private static String getPlatform()
