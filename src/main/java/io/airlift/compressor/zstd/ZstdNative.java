@@ -63,11 +63,16 @@ final class ZstdNative
         UNCOMPRESSED_LENGTH_METHOD = methodHandles.uncompressedLength();
         IS_ERROR_METHOD = methodHandles.isError();
         GET_ERROR_NAME_METHOD = methodHandles.getErrorName();
-        try {
-            DEFAULT_COMPRESSION_LEVEL = (int) methodHandles.defaultCLevel().invokeExact();
+        if (LINKAGE_ERROR.isEmpty()) {
+            try {
+                DEFAULT_COMPRESSION_LEVEL = (int) methodHandles.defaultCLevel().invokeExact();
+            }
+            catch (Throwable e) {
+                throw new ExceptionInInitializerError(e.getMessage());
+            }
         }
-        catch (Throwable e) {
-            throw new ExceptionInInitializerError(e.getMessage());
+        else {
+            DEFAULT_COMPRESSION_LEVEL = -1;
         }
     }
 

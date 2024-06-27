@@ -57,11 +57,17 @@ final class Lz4Native
         COMPRESS_METHOD = methodHandles.compress();
         COMPRESS_EXTERNAL_STATE_METHOD = methodHandles.compressExternalState();
         DECOMPRESS_METHOD = methodHandles.decompress();
-        try {
-            STATE_SIZE = (int) methodHandles.sizeofState().invokeExact();
+
+        if (LINKAGE_ERROR.isEmpty()) {
+            try {
+                STATE_SIZE = (int) methodHandles.sizeofState().invokeExact();
+            }
+            catch (Throwable e) {
+                throw new ExceptionInInitializerError(e);
+            }
         }
-        catch (Throwable e) {
-            throw new ExceptionInInitializerError(e);
+        else {
+            STATE_SIZE = -1;
         }
     }
 
