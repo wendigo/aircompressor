@@ -98,7 +98,7 @@ final class SnappyNative
     public static void verifyEnabled()
     {
         if (LINKAGE_ERROR.isPresent()) {
-            throw new IllegalStateException("Zstd native library is not enabled", LINKAGE_ERROR.get());
+            throw new IllegalStateException("Snappy native library is not enabled", LINKAGE_ERROR.get());
         }
     }
 
