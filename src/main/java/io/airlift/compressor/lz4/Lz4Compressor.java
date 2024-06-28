@@ -16,6 +16,7 @@ package io.airlift.compressor.lz4;
 import io.airlift.compressor.Compressor;
 
 import java.lang.foreign.MemorySegment;
+import java.util.Optional;
 
 public sealed interface Lz4Compressor
         extends Compressor
@@ -29,5 +30,24 @@ public sealed interface Lz4Compressor
             return new Lz4NativeCompressor();
         }
         return new Lz4JavaCompressor();
+    }
+
+    static boolean isNativeEnabled()
+    {
+        return Lz4Native.isEnabled();
+    }
+
+    static Optional<String> nativeError()
+    {
+        try {
+            Lz4Native.verifyEnabled();
+            return Optional.empty();
+        }
+        catch (IllegalStateException e) {
+            if (e.getCause() != null) {
+                return Optional.of(e.getCause().getMessage());
+            }
+            return Optional.of(e.getMessage());
+        }
     }
 }

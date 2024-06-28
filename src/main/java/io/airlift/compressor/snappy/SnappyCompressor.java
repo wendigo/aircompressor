@@ -16,6 +16,7 @@ package io.airlift.compressor.snappy;
 import io.airlift.compressor.Compressor;
 
 import java.lang.foreign.MemorySegment;
+import java.util.Optional;
 
 public sealed interface SnappyCompressor
         extends Compressor
@@ -29,5 +30,24 @@ public sealed interface SnappyCompressor
             return new SnappyNativeCompressor();
         }
         return new SnappyJavaCompressor();
+    }
+
+    static boolean isNativeEnabled()
+    {
+        return SnappyNative.isEnabled();
+    }
+
+    static Optional<String> nativeError()
+    {
+        try {
+            SnappyNative.verifyEnabled();
+            return Optional.empty();
+        }
+        catch (IllegalStateException e) {
+            if (e.getCause() != null) {
+                return Optional.of(e.getCause().getMessage());
+            }
+            return Optional.of(e.getMessage());
+        }
     }
 }

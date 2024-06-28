@@ -16,6 +16,7 @@ package io.airlift.compressor.zstd;
 import io.airlift.compressor.Compressor;
 
 import java.lang.foreign.MemorySegment;
+import java.util.Optional;
 
 public interface ZstdCompressor
         extends Compressor
@@ -28,5 +29,24 @@ public interface ZstdCompressor
             return new ZstdNativeCompressor();
         }
         return new ZstdJavaCompressor();
+    }
+
+    static boolean isNativeEnabled()
+    {
+        return ZstdNative.isEnabled();
+    }
+
+    static Optional<String> nativeError()
+    {
+        try {
+            ZstdNative.verifyEnabled();
+            return Optional.empty();
+        }
+        catch (IllegalStateException e) {
+            if (e.getCause() != null) {
+                return Optional.of(e.getCause().getMessage());
+            }
+            return Optional.of(e.getMessage());
+        }
     }
 }
