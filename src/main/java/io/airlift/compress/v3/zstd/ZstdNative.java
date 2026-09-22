@@ -55,6 +55,9 @@ final class ZstdNative
 
     private static final long CONTENT_SIZE_UNKNOWN = -1L;
 
+    // ZSTD_isError(code) == unsigned(code) > (size_t)(-ZSTD_error_maxCode); ZSTD_error_maxCode is 120 in zstd 1.5.7.
+    private static final long ERROR_THRESHOLD = -120L;
+
     static {
         NativeLoader.Symbols<MethodHandles> symbols = NativeLoader.loadSymbols("zstd", MethodHandles.class, lookup());
         LINKAGE_ERROR = symbols.linkageError();
@@ -162,16 +165,18 @@ final class ZstdNative
         return result;
     }
 
-    private static boolean isError(long code)
+    static boolean isError(long code)
+    {
+        return Long.compareUnsigned(code, ERROR_THRESHOLD) > 0;
+    }
+
+    static boolean nativeIsError(long code)
     {
         try {
             return (int) IS_ERROR_METHOD.invokeExact(code) != 0;
         }
-        catch (Error e) {
-            throw e;
-        }
         catch (Throwable e) {
-            throw new Error("Unexpected exception", e);
+            throw new AssertionError("should not reach here", e);
         }
     }
 
